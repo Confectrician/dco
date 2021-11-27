@@ -1,5 +1,5 @@
 const getDCOStatus = require('./lib/dco.js')
-const requireMembers = require('./lib/requireMembers.js')
+const requireConditions = require('./lib/requireConditions.js')
 
 /**
  * @param { {app: import('probot').Probot}} app
@@ -19,10 +19,11 @@ module.exports = ({ app }) => {
 
     const config = await context.config('dco.yml', {
       require: {
-        members: true
+        members: true,
+        this_repo: true
       }
     })
-    const requireForMembers = config.require.members
+    const requireOnConditions = config.require
 
     const pr = context.payload.pull_request
 
@@ -36,7 +37,7 @@ module.exports = ({ app }) => {
     const commits = compare.data.commits
     const dcoFailed = await getDCOStatus(
       commits,
-      requireMembers(requireForMembers, context),
+      requireConditions(requireOnConditions, context),
       context.payload.pull_request.html_url
     )
 

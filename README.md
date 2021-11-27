@@ -21,6 +21,15 @@ require:
 
 When this setting is present on a repository that belongs to a GitHub user (instead of an organization), only the repository owner is allowed to push commits without sign-off.
 
+It is also possible to exclude single repositories via `.github/dco.yml` configuration file the same way:
+
+```yaml
+require:
+  this_repo: false
+```
+
+This way you may configure your dco app organization wide easily and have the ability to exclude single repositories, where it is not needed.
+
 ## How it works
 
 The Developer Certificate of Origin (DCO) is a lightweight way for contributors to certify that they wrote or otherwise have the right to submit the code they are contributing to the project. Here is the full [text of the DCO](https://developercertificate.org/), reformatted for readability:
